@@ -33,7 +33,7 @@ hashira demonstrates how modern cracking tools work internally, including effici
 
 ```bash
 git clone https://github.com/Richieacey/Hashira.git
-cd hashira
+cd Hashira
 chmod +x hashira
 sudo cp hashira /usr/local/bin/hashira
 ```
