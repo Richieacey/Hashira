@@ -9,11 +9,30 @@ import multiprocessing as mp
 import sys
 from itertools import islice
 
+BANNER = r"""
+ _   _           _     _
+| | | | __ _ ___| |__ (_)_ __ __ _
+| |_| |/ _` / __| '_ \| | '__/ _` |
+|  _  | (_| \__ \ | | | | | | (_| |
+|_| |_|\__,_|___/_| |_|_|_|  \__,_|
+
+        Hash Cracking Engine
+"""
+
+
 GREEN = "\033[92m"
 YELLOW = "\033[93m"
 RED = "\033[91m"
 BLUE = "\033[94m"
 RESET = "\033[0m"
+
+def main():
+    print(RED + BANNER + RESET)
+    print("Author  : Richard Uwumwonse")
+    print("Version : 1.0.0")
+    print("License : MIT")
+    print("-" * 50)
+
 
 HASH_FUNCS = {
     "md5": hashlib.md5,
@@ -31,8 +50,16 @@ parser.add_argument("-o", "--output", help="Output file")
 parser.add_argument("-j", "--jobs", type=int, default=mp.cpu_count(), help="Worker processes")
 parser.add_argument("--chunk", type=int, default=20000, help="Words per chunk (increase for speed)")
 parser.add_argument("--salt", help="Global salt (optional)")
+parser.add_argument(
+    "-q", "--quiet",
+    action="store_true",
+    help="Suppress banner output"
+)
 
 args = parser.parse_args()
+if not args.quiet:
+    main()
+
 
 selected = [k for k in HASH_FUNCS if getattr(args, k)]
 if len(selected) != 1:
@@ -93,9 +120,9 @@ with open(args.wordlist, 'r', encoding='latin-1', errors='ignore') as f, mp.Pool
             if h in remaining:
                 remaining.remove(h)
                 msg = f"[+] FOUND ({hash_name}) {h} --> {YELLOW}{word}{RESET}"
-                print(f"{msg}")
+                print(f"{GREEN}{msg}{RESET}")
                 if outfile:
-                    outfile.write(msg + '\n')
+                    outfile.write(f"{h} -> {word}" + '\n')
 
         if checked % 1_000_000 == 0:
             print(f"{BLUE}[*] Checked ~{checked:,} passwords{RESET}")
