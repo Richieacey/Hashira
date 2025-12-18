@@ -12,7 +12,7 @@ hashira demonstrates how modern cracking tools work internally, including effici
 ## Features
 
 - Supports **MD5, SHA1, SHA256**
-- Correct multiprocessing design (no shared-state overhead)
+- multiprocessing design
 - Early exit when all hashes are cracked
 - Supports `hash:salt` format and global salt
 - Large wordlist handling (rockyou.txt)
@@ -32,8 +32,8 @@ hashira demonstrates how modern cracking tools work internally, including effici
 ## Installation (from source)
 
 ```bash
-git clone https://github.com/Richieacey/hashira.git
-cd hashira
+git clone https://github.com/Richieacey/Hashira.git
+cd Hashira
 chmod +x hashira
 sudo cp hashira /usr/local/bin/hashira
 ```
